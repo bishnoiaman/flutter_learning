@@ -67,7 +67,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-
       body: BlocConsumer<HomeCubit, HomeCubitState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -109,7 +108,6 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                       ),
-
                       CircleAvatar(
                         backgroundColor: const Color.fromARGB(
                           255,
@@ -186,8 +184,8 @@ class HomeKeyFactorsWidget extends StatelessWidget {
                     backgroundColor: (keyFactor.color == Colors.green)
                         ? const Color.fromARGB(255, 223, 247, 223)
                         : (keyFactor.color == Colors.yellow)
-                        ? const Color.fromARGB(255, 248, 245, 216)
-                        : const Color.fromARGB(255, 243, 208, 249),
+                            ? const Color.fromARGB(255, 248, 245, 216)
+                            : const Color.fromARGB(255, 243, 208, 249),
                     child: SvgPicture.string(
                       keyFactor.icon,
                       color: keyFactor.color,
@@ -494,7 +492,7 @@ class UnderstandYourScore extends StatelessWidget {
           ),
           SizedBox(height: 20),
           ClipRRect(
-            borderRadius: BorderRadiusGeometry.circular(12),
+            borderRadius: BorderRadius.all(Radius.circular(12.0)),
             child: Stack(
               alignment: Alignment.center,
               children: [
