@@ -13,20 +13,11 @@ class CreditreportPage extends StatefulWidget {
 }
 
 class _CreditreportPageState extends State<CreditreportPage> {
-  // bool _triggerProgressBarAnimation = false;
-  late final Widget progressBarWidget;
-
   @override
   void initState() {
     super.initState();
     context.read<CreditReportCubit>().fetchData();
-    progressBarWidget = ProgressBar_Button();
-    // progressBarWidget = ProgressBar_Button(triggerAnimation: _triggerProgressBarAnimation);
   }
-
-  // void _triggerAnimation(){
-  //   ProgressBar_Button();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -46,33 +37,7 @@ class _CreditreportPageState extends State<CreditreportPage> {
                   SizedBox(height: 30),
                   ListItem(),
                   SizedBox(height: 20),
-                  VisibilityDetector(
-                    key: Key('visible--key'),
-                    onVisibilityChanged: (visibilityInfo) {
-                      var visiblePercentage =
-                          visibilityInfo.visibleFraction * 100;
-                      if (visiblePercentage > 0) {
-                        // context.read<CreditReportCubit>().fetchData();
-                        // _triggerAnimation();
-                        // progressBarWidget;
-                        // setState(() {
-                        //   progressBarWidget;
-                        // });
-                        // ProgressBar_Button(key: UniqueKey());
-                        // debugPrint("hii");
-                        // setState(() {
-                        //   _triggerProgressBarAnimation = true;
-                          
-                        // });
-                        // setState(() {
-                        //   progressBarWidget = ProgressBar_Button();
-                        // });
-                      }
-                    },
-                    child: ProgressBar_Button()
-                    // child: ProgressBar_Button(triggerAnimation: _triggerProgressBarAnimation,)
-                  ),
-
+                  ProgressBarButton(),
                   GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
@@ -86,31 +51,18 @@ class _CreditreportPageState extends State<CreditreportPage> {
                       return CreditKeyFactorWidget(
                         keydata: CreditReportKeyFactorModel(
                           title: state
-                              .creditReportData
-                              .data
-                              .scoreFactors[index]
-                              .title,
-                          impactBgColor: state
-                              .creditReportData
-                              .data
-                              .scoreFactors[index]
-                              .impactBgColor,
-                          impactLabel: state
-                              .creditReportData
-                              .data
-                              .scoreFactors[index]
-                              .impactLabel,
-                          description: state
-                              .creditReportData
-                              .data
-                              .scoreFactors[index]
-                              .description,
+                              .creditReportData.data.scoreFactors[index].title,
+                          impactBgColor: state.creditReportData.data
+                              .scoreFactors[index].impactBgColor,
+                          impactLabel: state.creditReportData.data
+                              .scoreFactors[index].impactLabel,
+                          description: state.creditReportData.data
+                              .scoreFactors[index].description,
                         ),
                       );
                     },
                   ),
-
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                 ],
               ),
             ),
@@ -183,7 +135,6 @@ class CreditKeyFactorWidget extends StatelessWidget {
                   ),
                 ],
               ),
-
               Text(
                 keydata.description,
                 maxLines: 3,
@@ -293,22 +244,21 @@ class ListItem extends StatelessWidget {
   }
 }
 
-class ProgressBar_Button extends StatefulWidget {
-  final bool triggerAnimation;
-  const ProgressBar_Button({super.key, this.triggerAnimation = false});
+class ProgressBarButton extends StatefulWidget {
+  const ProgressBarButton({
+    super.key,
+  });
 
   @override
-  State<ProgressBar_Button> createState() => _ProgressBar_ButtonState();
+  State<ProgressBarButton> createState() => _ProgressBarButtonState();
 }
 
-class _ProgressBar_ButtonState extends State<ProgressBar_Button>
+class _ProgressBarButtonState extends State<ProgressBarButton>
     with TickerProviderStateMixin {
   late AnimationController arcController;
   late AnimationController valueController;
   late Animation arcAnimation;
   late Animation valueAnimation;
-
-  //  bool _hasStartedAnimation = false;
 
   @override
   void initState() {
@@ -331,25 +281,7 @@ class _ProgressBar_ButtonState extends State<ProgressBar_Button>
       ..addListener(() {
         setState(() {});
       });
-
-
-    // if (widget.triggerAnimation) {
-    //   _startAnimation();
-    // }
-    arcController.forward();
-    valueController.forward();
   }
-
-  // void _startAnimation() {
-  //   arcController.forward();
-  //   valueController.forward();
-  //   _hasStartedAnimation = true;
-  // }
-
-  // void startAnimation() {
-  //   arcController.forward();
-  //   valueController.forward();
-  // }
 
   @override
   void dispose() {
@@ -360,7 +292,15 @@ class _ProgressBar_ButtonState extends State<ProgressBar_Button>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return VisibilityDetector(
+      key: Key('visible--key'),
+      onVisibilityChanged: (visibilityInfo) {
+        var visiblePercentage = visibilityInfo.visibleFraction * 100;
+        if (visiblePercentage > 0) {
+          arcController.forward();
+          valueController.forward();
+        }
+      },
       child: Column(
         children: [
           CustomPaint(
