@@ -1,0 +1,13 @@
+{
+  "welcomeMessage": "Welcome!",
+  "BoostYourCreditScoreto" : "Boost Your Credit Score to",
+  "750+" : "750+",
+  "EnterYourMobileNumber" : "Enter Your Mobile Number",
+  "Continue" : "Continue",
+  "Enterotp" : "Enter OTP",
+  "otpsentmessage" : "We;ve sent a 6-digit OTP to your mobile number." ,
+  "One-Time Password" : "One-Time Password",
+  "VerifyOTP" : "Verfiy OTP",
+  "Didnotrevieveotp?" : "Didn't revieve the OTP?",
+  "resendotp" : "Resend OTP"
+}
