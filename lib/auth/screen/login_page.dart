@@ -13,6 +13,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       // resizeToAvoidBottomInset: true,
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
