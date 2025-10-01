@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Splashscreen extends StatefulWidget {
@@ -11,39 +12,45 @@ class Splashscreen extends StatefulWidget {
 }
 
 class _SplashscreenState extends State<Splashscreen> {
-
   @override
-  void initState(){
+  void initState() {
     super.initState();
     isLogin();
   }
 
-  void isLogin()async{
-    
+  void isLogin() async {
     final prefs = await SharedPreferences.getInstance();
-    final isLoggedIn = prefs.getBool('isLoggedIn') ?? false ;
+    final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
 
-    Timer(const Duration(seconds: 2), () {
-      if(isLoggedIn){
+    Timer(const Duration(seconds: 3), () {
+      if (isLoggedIn) {
         Navigator.pushNamed(
-              context,
-              '/roothome',
-            );
-      }else{
+          context,
+          '/roothome',
+        );
+      } else {
         Navigator.pushNamed(
-              context,
-              '/login',
-            );
+          context,
+          '/login',
+        );
       }
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal,
-      body: Center(child: Text("Welcome", textAlign: TextAlign.center,style: TextStyle(color: Colors.purple, fontSize: 30),),),
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text("Splash screen"),
+          const SizedBox(
+            height: 16,
+          ),
+          LoadingAnimationWidget.staggeredDotsWave(
+              color: Colors.purple, size: 36),
+        ]),
+      ),
     );
   }
 }
